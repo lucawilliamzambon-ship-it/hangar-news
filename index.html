@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hangar News</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--paper:#ffffff;--ink:#0c2247;--mute:#5f7191;--rule:#e1e9f4;--link:#2b6fd6;--tint:#e6f0fc;--blue:#0c2d6b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0b1626;--ink:#e6eefb;--mute:#8ea3c4;--rule:#1d2e4a;--link:#8fbcf5;--tint:#162c4f;--blue:#8fbcf5;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0b1626;--ink:#e6eefb;--mute:#8ea3c4;--rule:#1d2e4a;--link:#8fbcf5;--tint:#162c4f;--blue:#8fbcf5;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:2px}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:36px}
+.mark{font-weight:600;font-size:1rem;letter-spacing:-.01em}
+.lang{display:flex;gap:14px;font-size:.85rem}
+.lang button{color:var(--mute);padding:2px 0;border-bottom:1px solid transparent}
+.lang button:hover{color:var(--ink)}
+.lang button.on{color:var(--ink);border-color:var(--ink)}
+h1{font-weight:600;font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.1;letter-spacing:-.035em;margin:72px 0 10px}
+.upd{margin:0;font-size:.9rem;color:var(--mute)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:48px;background:var(--paper)}
+.bar .wrap{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--rule)}
+.bar button{flex:none;padding:14px 0 12px;font-size:.9rem;color:var(--mute);border-bottom:1px solid transparent;margin-bottom:-1px}
+.bar button:hover{color:var(--ink)}
+.bar button.on{color:var(--ink);border-color:var(--ink)}
+.row{display:grid;grid-template-columns:48px 1fr;gap:0 20px;padding:32px 0;border-bottom:1px solid var(--rule)}
+.date{font-size:.85rem;color:var(--mute);margin-bottom:8px}
+.row h2{margin:0;font-weight:600;font-size:1.4rem;line-height:1.25;letter-spacing:-.02em}
+.row h2 a{text-decoration:none}
+.row h2 a:hover,.row h2 a:focus-visible{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+.row p{margin:10px 0 0;color:var(--mute);font-size:1rem;max-width:58ch}
+.foot{display:flex;flex-wrap:wrap;gap:2px 16px;margin-top:14px;font-size:.85rem;color:var(--mute)}
+.cat{color:var(--ink)}
+.row.lead-story{padding-top:40px}
+.row.lead-story h2{font-size:clamp(1.8rem,5vw,2.3rem);line-height:1.12;letter-spacing:-.03em}
+.row.lead-story p{font-size:1.1rem}
+.empty{padding:48px 0;color:var(--mute)}
+.note{padding:36px 0 56px;font-size:.8rem;color:var(--mute);max-width:56ch}
+@media (max-width:560px){.wrap{padding:0 20px}h1{margin-top:52px}}
+.ico{width:48px;height:48px;border-radius:14px;background:var(--tint);color:var(--blue);display:grid;place-items:center}
+.ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ico svg .f{fill:currentColor;stroke:none}
+.row h2 a:hover,.row h2 a:focus-visible{color:var(--link)}
+.row.lead-story{grid-template-columns:64px 1fr}
+.row.lead-story .ico{width:64px;height:64px;border-radius:18px}
+.row.lead-story .ico svg{width:30px;height:30px}
+.bar button.on{color:var(--blue);border-color:var(--blue)}
+.lang button.on{color:var(--blue);border-color:var(--blue)}
+.cat{color:var(--blue);font-weight:500}
+@media (max-width:560px){.row,.row.lead-story{grid-template-columns:40px 1fr;gap:0 14px}.ico,.row.lead-story .ico{width:40px;height:40px;border-radius:12px}.ico svg,.row.lead-story .ico svg{width:20px;height:20px}}
+.row{cursor:pointer}
+.detail{padding:28px 0 56px}
+.back{display:inline-block;font-size:.9rem;color:var(--mute);text-decoration:none;margin-bottom:28px}
+.back:hover{color:var(--blue)}
+.detail .ico{margin-bottom:22px;width:64px;height:64px;border-radius:18px}
+.detail .ico svg{width:30px;height:30px}
+.detail h2{margin:0;font-weight:600;font-size:clamp(1.9rem,5vw,2.5rem);line-height:1.12;letter-spacing:-.03em}
+.detail .sum{margin:16px 0 0;font-size:1.15rem;max-width:58ch}
+.detail h3{margin:36px 0 10px;font-size:.95rem;font-weight:600;color:var(--blue)}
+.detail ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--rule)}
+.detail li{padding:14px 0;border-bottom:1px solid var(--rule);max-width:62ch}
+.detail .txt{margin-top:28px}
+.detail .txt p{margin:0 0 18px;max-width:60ch;font-size:1.05rem;line-height:1.7}
+.orig{display:inline-block;margin-top:28px;font-size:.92rem;color:var(--link)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="mark">Hangar News</div><div class="lang" id="lang"></div></div>
+<h1 id="h1"></h1>
+<p class="upd" id="upd"></p>
+</div>
+<div class="bar"><div class="wrap" id="bar"></div></div>
+<main class="wrap" id="list"></main>
+<div class="wrap"><p class="note" id="foot"></p></div>
+<script>
+var L={
+it:{h1:"L’aviazione, in breve.",lead:"Certificazioni, compagnie e industria: le notizie che contano, scelte da fonti di settore.",upd:"Aggiornato il",read:"Fonte:",back:"Tutte le notizie",kp:"Punti chiave",orig:"Leggi l’articolo originale su",all:"Tutte",empty:"Nessuna notizia in questa categoria.",foot:"Le notizie sono raccolte in automatico dai feed di siti di settore; titoli e anteprime restano nella lingua originale, in genere l’inglese. Per il testo completo apri l’articolo originale.",
+cat:{cert:"Certificazioni",sic:"Sicurezza",comp:"Compagnie",ind:"Industria"},mo:["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"],f:function(d,m,y){return d+" "+m+" "+y}},
+en:{h1:"Aviation, in brief.",lead:"Certifications, airlines and industry: the news that matters, picked from trade sources.",upd:"Updated",read:"Source:",back:"All news",kp:"Key points",orig:"Read the original article on",all:"All",empty:"No news in this category.",foot:"News is collected automatically from the feeds of trade sites; headlines and previews stay in the original language. Open the original article for the full text.",
+cat:{cert:"Certifications",sic:"Safety",comp:"Airlines",ind:"Industry"},mo:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],f:function(d,m,y){return m+" "+d+", "+y}},
+de:{h1:"Luftfahrt, kurz und knapp.",lead:"Zulassungen, Airlines und Industrie: die wichtigsten Nachrichten, ausgewählt aus Fachquellen.",upd:"Stand",read:"Quelle:",back:"Alle Nachrichten",kp:"Wichtigste Punkte",orig:"Originalartikel lesen bei",all:"Alle",empty:"Keine Nachrichten in dieser Kategorie.",foot:"Die Nachrichten werden automatisch aus den Feeds von Fachseiten gesammelt; Überschriften und Vorschautexte bleiben in der Originalsprache. Den vollständigen Text gibt es im Originalartikel.",
+cat:{cert:"Zulassungen",sic:"Sicherheit",comp:"Airlines",ind:"Industrie"},mo:["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],f:function(d,m,y){return d+". "+m+" "+y}}
+};
+var N=[],K={},UPD="";
+var lang="it";
+try{var sv=localStorage.getItem("hn-lang");if(sv&&L[sv])lang=sv;else{var nl=(navigator.language||"it").slice(0,2);if(L[nl])lang=nl}}catch(e){var nl2=(navigator.language||"it").slice(0,2);if(L[nl2])lang=nl2}
+var cur="all",bar=document.getElementById("bar"),list=document.getElementById("list");
+function parts(d){var p=d.split("-"),t=L[lang];return {d:+p[2],m:t.mo[+p[1]-1],y:p[0]}}
+function esc(s){var e=document.createElement("div");e.textContent=s;return e.innerHTML}
+function setLang(l){lang=l;try{localStorage.setItem("hn-lang",l)}catch(e){}render()}
+var IC={
+cert:'<svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-2.9 7.700-7 9.500-4.100-1.800-7-5.100-7-9.500V6z"/><path d="M9 12l2.200 2.200L15.500 10"/></svg>',
+sic:'<svg viewBox="0 0 24 24"><path d="M12 3.500l9.500 16.500h-19z"/><path d="M12 10v4.500"/><path d="M12 17.500v.01"/></svg>',
+comp:'<svg viewBox="0 0 24 24"><path class="f" d="M21 16v-2l-8-5V3.500a1.500 1.500 0 0 0-3 0V9l-8 5v2l8-2.500V19l-2 1.500V22l3.500-1 3.500 1v-1.500L13 19v-5.500z"/></svg>',
+ind:'<svg viewBox="0 0 24 24"><path d="M3 21V9.500l6 3.500V9.500l6 3.500V5h6v16z"/><path d="M7 17h.01M12 17h.01M17 17h.01"/></svg>'};
+function row(n,t,lead){
+var p=parts(n.d);
+return '<article class="row'+(lead?' lead-story':'')+'" data-id="'+n.id+'"><div class="ico" aria-hidden="true">'+IC[n.c]+'</div><div><div class="date">'+p.d+' '+esc(p.m)+' '+p.y+'</div><h2><a href="#'+n.id+'">'+esc(n[lang][0])+'</a></h2><p>'+esc(n[lang][1])+'</p><div class="foot"><span class="cat">'+esc(t.cat[n.c])+'</span><span>'+esc(t.read)+' '+esc(n.s)+'</span></div></div></article>'}
+function detail(n,t){var p=parts(n.d);return '<article class="detail"><a class="back" href="#">‹ '+esc(t.back)+'</a><div class="ico" aria-hidden="true">'+IC[n.c]+'</div><div class="date">'+p.d+' '+esc(p.m)+' '+p.y+'</div><h2>'+esc(n[lang][0])+'</h2><p class="sum">'+esc(n[lang][1])+'</p><div class="txt">'+K[n.id][lang].map(function(x){return '<p>'+esc(x)+'</p>'}).join('')+'</div><div class="foot"><span class="cat">'+esc(t.cat[n.c])+'</span></div><a class="orig" href="'+n.u+'" target="_blank" rel="noopener">'+esc(t.orig)+' '+esc(n.s)+'</a></article>'}
+function render(){
+var t=L[lang];
+document.documentElement.lang=lang;
+document.getElementById("h1").textContent=t.h1;
+var up=UPD?parts(UPD.slice(0,10)):null;
+document.getElementById("upd").textContent=up?t.upd+" "+up.d+" "+up.m+" "+up.y:"";
+document.getElementById("foot").textContent=t.foot;
+var lg=document.getElementById("lang");lg.innerHTML="";
+["it","en","de"].forEach(function(l){var b=document.createElement("button");b.textContent=l.toUpperCase();b.setAttribute("aria-label",l);if(l===lang)b.className="on";b.onclick=function(){setLang(l)};lg.appendChild(b)});
+var hid=location.hash.slice(1),dn=N.filter(function(n){return n.id===hid})[0];
+bar.parentNode.style.display=dn?"none":"";
+if(dn){list.innerHTML=detail(dn,t);document.title=dn[lang][0]+" – Hangar News";return}
+document.title="Hangar News";
+bar.innerHTML="";
+["all","cert","sic","comp","ind"].forEach(function(k){var b=document.createElement("button");b.textContent=k==="all"?t.all:t.cat[k];if(k===cur)b.className="on";b.onclick=function(){cur=k;render()};bar.appendChild(b)});
+var a=N.slice().sort(function(x,y){return x.d<y.d?1:-1}).filter(function(n){return cur==="all"||n.c===cur});
+list.innerHTML=a.length?a.map(function(n,i){return row(n,t,i===0)}).join(""):'<div class="empty">'+esc(t.empty)+'</div>';
+}
+list.addEventListener("click",function(e){var r=e.target.closest(".row");if(r&&!e.target.closest("a"))location.hash=r.getAttribute("data-id")});
+window.addEventListener("hashchange",function(){render();window.scrollTo(0,0)});
+fetch("news.json?t="+Date.now()).then(function(r){return r.json()}).then(function(d){N=d.items||[];K=d.K||{};UPD=d.updated||"";render()}).catch(function(){render()});
+</script>
+</body>
+</html>
